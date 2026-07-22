@@ -104,8 +104,8 @@ class Autopilot_LP_Funnel_Builder_Github_Updater {
 			$obj->plugin      = $this->slug;
 			$obj->new_version = $remote_version;
 			$obj->url         = "https://github.com/{$this->repo}";
-			// mainブランチの最新ZIPアーカイブURLを指定
-			$obj->package     = "https://github.com/{$this->repo}/archive/refs/heads/main.zip";
+			// リポジトリ内の事前ビルド済ZIPパッケージのraw URLを指定
+			$obj->package     = "https://github.com/{$this->repo}/raw/main/autopilot-lp-funnel-builder.zip";
 
 			$transient->response[ $this->slug ] = $obj;
 		}
@@ -138,7 +138,7 @@ class Autopilot_LP_Funnel_Builder_Github_Updater {
 			$res->version     = $remote_version;
 			$res->author      = 'shige3work';
 			$res->homepage    = "https://github.com/{$this->repo}";
-			$res->download_link = "https://github.com/{$this->repo}/archive/refs/heads/main.zip";
+			$res->download_link = "https://github.com/{$this->repo}/raw/main/autopilot-lp-funnel-builder.zip";
 			$res->sections    = array(
 				'description' => 'Gemini APIを活用して、WordPressサイト上で「用途別の成約用LP（固定ページ）」および「トピッククラスター構成の集客記事群（投稿）」を自動生成・予約公開するWordPressプラグインです。',
 				'changelog'   => 'GitHubへのコミットとバージョンアップにより直接更新が可能です。最新版にアップデートしてください。',
@@ -160,34 +160,7 @@ class Autopilot_LP_Funnel_Builder_Github_Updater {
 	 * @return array
 	 */
 	public function post_install( $response, $hook_extra, $result ) {
-		global $wp_filesystem;
-
-		// ファイルシステムオブジェクトの初期化
-		if ( empty( $wp_filesystem ) ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-			WP_Filesystem();
-		}
-
-		$plugin_folder = 'autopilot-lp-funnel-builder';
-		$install_directory = plugin_dir_path( __FILE__ ) . '../../'; // pluginsディレクトリへのパス
-
-		// 展開先ディレクトリ名
-		$destination = $result['destination'];
-
-		// 展開先が元のプラグインディレクトリ名と異なる場合、リネームする
-		if ( basename( $destination ) !== $plugin_folder ) {
-			$correct_destination = trailingslashit( dirname( $destination ) ) . $plugin_folder;
-
-			// 既に正しいフォルダが存在すれば削除
-			if ( $wp_filesystem->exists( $correct_destination ) ) {
-				$wp_filesystem->delete( $correct_destination, true );
-			}
-
-			// リネームを実行
-			$wp_filesystem->move( $destination, $correct_destination );
-			$result['destination'] = $correct_destination;
-		}
-
+		// リポジトリ直下の事前ビルド済ZIPを使用するため、展開後のフォルダ名クリーンアップ処理は不要です。
 		return $result;
 	}
 }
