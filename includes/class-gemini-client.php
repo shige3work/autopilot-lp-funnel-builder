@@ -131,15 +131,39 @@ class Autopilot_LP_Funnel_Builder_Gemini_Client {
 		}
 
 		$url      = $this->api_url . '?key=' . $api_key;
-		$response = wp_remote_post(
-			$url,
-			array(
-				'headers'   => array( 'Content-Type' => 'application/json' ),
-				'body'      => wp_json_encode( $payload ),
-				'timeout'   => 120, // 処理が重いため長めに設定
-				'sslverify' => true,
-			)
-		);
+		
+		$max_retries = 3;
+		$retry_delay = 2; // 秒
+		$response    = null;
+
+		for ( $i = 0; $i < $max_retries; $i++ ) {
+			$response = wp_remote_post(
+				$url,
+				array(
+					'headers'   => array( 'Content-Type' => 'application/json' ),
+					'body'      => wp_json_encode( $payload ),
+					'timeout'   => 120, // 処理が重いため長めに設定
+					'sslverify' => true,
+				)
+			);
+
+			if ( is_wp_error( $response ) ) {
+				// ネットワークエラーの場合は一時停止してリトライ
+				sleep( $retry_delay );
+				continue;
+			}
+
+			$code = wp_remote_retrieve_response_code( $response );
+
+			// 503 (High Demand) または 429 (Too Many Requests) の場合はスリープしてリトライ
+			if ( 503 === $code || 429 === $code ) {
+				sleep( $retry_delay * ( $i + 1 ) ); // バックオフ
+				continue;
+			}
+
+			// それ以外のステータス（成功またはその他エラー）はループを抜ける
+			break;
+		}
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
