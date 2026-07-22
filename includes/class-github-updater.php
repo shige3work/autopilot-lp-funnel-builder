@@ -162,6 +162,12 @@ class Autopilot_LP_Funnel_Builder_Github_Updater {
 	public function post_install( $response, $hook_extra, $result ) {
 		global $wp_filesystem;
 
+		// ファイルシステムオブジェクトの初期化
+		if ( empty( $wp_filesystem ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+
 		$plugin_folder = 'autopilot-lp-funnel-builder';
 		$install_directory = plugin_dir_path( __FILE__ ) . '../../'; // pluginsディレクトリへのパス
 
