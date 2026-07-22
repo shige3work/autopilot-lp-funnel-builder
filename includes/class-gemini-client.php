@@ -17,7 +17,7 @@ class Autopilot_LP_Funnel_Builder_Gemini_Client {
 	/**
 	 * APIエンドポイントURL
 	 */
-	private $api_url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+	private $api_url = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
 
 	/**
 	 * APIキーの取得
