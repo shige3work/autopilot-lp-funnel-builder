@@ -38,7 +38,10 @@ class Autopilot_LP_Funnel_Builder_Github_Updater {
 	 */
 	private function get_latest_release() {
 		$transient_key = 'alp_github_latest_release';
-		$release       = get_transient( $transient_key );
+		
+		// WordPressが更新の強制チェックを行っている場合はキャッシュを無視する
+		$force_check = isset( $_GET['force-check'] ) && '1' === $_GET['force-check'];
+		$release     = $force_check ? false : get_transient( $transient_key );
 
 		if ( false !== $release ) {
 			return $release;
