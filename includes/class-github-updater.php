@@ -2,7 +2,7 @@
 /**
  * GitHub Updater Class
  *
- * GitHubリポジトリの最新リリース情報を取得し、WordPress管理画面からプラグインの更新を行えるようにします。
+ * GitHubのmainブランチから直接バージョン情報を検出し、WordPress管理画面上でプラグインを自動更新できるようにします。
  *
  * @package Autopilot_LP_Funnel_Builder
  */
@@ -34,20 +34,22 @@ class Autopilot_LP_Funnel_Builder_Github_Updater {
 	}
 
 	/**
-	 * GitHub APIから最新のリリース情報を取得する
+	 * GitHubのmainブランチ上のrawファイルからリモートバージョンを取得する
+	 *
+	 * @return string|false バージョン番号。取得失敗時はfalse。
 	 */
-	private function get_latest_release() {
-		$transient_key = 'alp_github_latest_release';
+	private function get_remote_version() {
+		$transient_key = 'alp_github_remote_version';
 		
-		// WordPressが更新の強制チェックを行っている場合はキャッシュを無視する
+		// 強制チェック時はキャッシュを無視
 		$force_check = isset( $_GET['force-check'] ) && '1' === $_GET['force-check'];
-		$release     = $force_check ? false : get_transient( $transient_key );
+		$version     = $force_check ? false : get_transient( $transient_key );
 
-		if ( false !== $release ) {
-			return $release;
+		if ( false !== $version ) {
+			return $version;
 		}
 
-		$url      = "https://api.github.com/repos/{$this->repo}/releases/latest";
+		$url      = "https://raw.githubusercontent.com/{$this->repo}/main/autopilot-lp-funnel-builder.php";
 		$response = wp_remote_get(
 			$url,
 			array(
@@ -62,11 +64,17 @@ class Autopilot_LP_Funnel_Builder_Github_Updater {
 			return false;
 		}
 
-		$data = json_decode( wp_remote_retrieve_body( $response ) );
-		if ( ! empty( $data ) ) {
+		$content = wp_remote_retrieve_body( $response );
+		if ( empty( $content ) ) {
+			return false;
+		}
+
+		// ファイルヘッダーから Version: x.x.x を抽出
+		if ( preg_match( '/Version:\s*([0-9.-]+)/i', $content, $matches ) ) {
+			$remote_version = trim( $matches[1] );
 			// 1時間キャッシュする
-			set_transient( $transient_key, $data, HOUR_IN_SECONDS );
-			return $data;
+			set_transient( $transient_key, $remote_version, HOUR_IN_SECONDS );
+			return $remote_version;
 		}
 
 		return false;
@@ -83,21 +91,21 @@ class Autopilot_LP_Funnel_Builder_Github_Updater {
 			return $transient;
 		}
 
-		$release = $this->get_latest_release();
-		if ( ! $release ) {
+		$remote_version = $this->get_remote_version();
+		if ( ! $remote_version ) {
 			return $transient;
 		}
 
-		$latest_version = ltrim( $release->tag_name, 'v' );
 		$current_version = AUTOPILOT_LP_FUNNEL_BUILDER_VERSION;
 
-		if ( version_compare( $latest_version, $current_version, '>' ) ) {
+		if ( version_compare( $remote_version, $current_version, '>' ) ) {
 			$obj              = new stdClass();
 			$obj->slug        = 'autopilot-lp-funnel-builder';
 			$obj->plugin      = $this->slug;
-			$obj->new_version = $latest_version;
+			$obj->new_version = $remote_version;
 			$obj->url         = "https://github.com/{$this->repo}";
-			$obj->package     = $release->zipball_url;
+			// mainブランチの最新ZIPアーカイブURLを指定
+			$obj->package     = "https://github.com/{$this->repo}/archive/refs/heads/main.zip";
 
 			$transient->response[ $this->slug ] = $obj;
 		}
@@ -119,23 +127,21 @@ class Autopilot_LP_Funnel_Builder_Github_Updater {
 		}
 
 		if ( isset( $args->slug ) && $args->slug === 'autopilot-lp-funnel-builder' ) {
-			$release = $this->get_latest_release();
-			if ( ! $release ) {
+			$remote_version = $this->get_remote_version();
+			if ( ! $remote_version ) {
 				return $res;
 			}
-
-			$latest_version = ltrim( $release->tag_name, 'v' );
 
 			$res              = new stdClass();
 			$res->name        = 'Autopilot LP Funnel Builder';
 			$res->slug        = 'autopilot-lp-funnel-builder';
-			$res->version     = $latest_version;
+			$res->version     = $remote_version;
 			$res->author      = 'shige3work';
 			$res->homepage    = "https://github.com/{$this->repo}";
-			$res->download_link = $release->zipball_url;
+			$res->download_link = "https://github.com/{$this->repo}/archive/refs/heads/main.zip";
 			$res->sections    = array(
 				'description' => 'Gemini APIを活用して、WordPressサイト上で「用途別の成約用LP（固定ページ）」および「トピッククラスター構成の集客記事群（投稿）」を自動生成・予約公開するWordPressプラグインです。',
-				'changelog'   => isset( $release->body ) ? wp_kses_post( nl2br( $release->body ) ) : '最新版にアップデートしてください。',
+				'changelog'   => 'GitHubへのコミットとバージョンアップにより直接更新が可能です。最新版にアップデートしてください。',
 			);
 		}
 
@@ -145,7 +151,7 @@ class Autopilot_LP_Funnel_Builder_Github_Updater {
 	/**
 	 * インストール後のフォルダ名クリーンアップ処理
 	 *
-	 * GitHubからZIPダウンロードすると、展開後のフォルダ名が 'shige3work-autopilot-lp-funnel-builder-hash' のようになってしまうため、
+	 * GitHubからZIPダウンロードすると、展開後のフォルダ名が 'autopilot-lp-funnel-builder-main' のようになってしまうため、
 	 * 元のフォルダ名 'autopilot-lp-funnel-builder' にリネームします。
 	 *
 	 * @param bool  $response インストール応答。
