@@ -122,7 +122,7 @@ class Autopilot_LP_Funnel_Builder_Admin_Settings {
 					<span class="dashicons dashicons-art alp-main-icon"></span>
 					<h1>Autopilot LP Funnel Builder <span class="alp-badge">V1 MVP</span></h1>
 				</div>
-				<p class="alp-tagline">Gemini 1.5 Flashを活用し、成約用LPとSEOトピッククラスター記事群をWordPress上に自動構築・予約公開します。</p>
+				<p class="alp-tagline">Gemini 3.5 Flashを活用し、成約用LPとSEOトピッククラスター記事群をWordPress上に自動構築・予約公開します。</p>
 			</header>
 
 			<!-- タブメニューナビゲーション -->
@@ -392,7 +392,7 @@ class Autopilot_LP_Funnel_Builder_Admin_Settings {
 							<label for="alp-api-key">Gemini API キー <span class="alp-required">*</span></label>
 							<input type="password" name="api_key" id="alp-api-key" class="regular-text" value="<?php echo esc_attr( $api_key ); ?>" required>
 							<p class="description">
-								Gemini 1.5 Flash APIキーを入力してください。APIキーは <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a> から無料で取得可能です。
+								Gemini 3.5 Flash APIキーを入力してください。APIキーは <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a> から無料で取得可能です。
 							</p>
 						</div>
 

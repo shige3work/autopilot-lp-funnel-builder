@@ -3,7 +3,7 @@
  * Plugin Name:       Autopilot LP Funnel Builder
  * Plugin URI:        https://github.com/shige3work/autopilot-lp-funnel-builder
  * Description:       Gemini APIを活用して、WordPressサイト上で「用途別の成約用LP（固定ページ）」および「トピッククラスクラスター構成の集客記事群（投稿）」を自動生成・予約公開するWordPressプラグイン。
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            shige3work
  * Author URI:        https://github.com/shige3work
  * License:           GPL-2.0-or-later
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // 定数の定義
-define( 'AUTOPILOT_LP_FUNNEL_BUILDER_VERSION', '1.0.1' );
+define( 'AUTOPILOT_LP_FUNNEL_BUILDER_VERSION', '1.0.2' );
 define( 'AUTOPILOT_LP_FUNNEL_BUILDER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AUTOPILOT_LP_FUNNEL_BUILDER_URL', plugin_dir_url( __FILE__ ) );
 

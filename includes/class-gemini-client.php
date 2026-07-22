@@ -2,7 +2,7 @@
 /**
  * Gemini API Client Class
  *
- * Gemini 1.5 Flash APIとの連携およびURLスクレイピングを管理します。
+ * Gemini 3.5 Flash APIとの連携およびURLスクレイピングを管理します。
  *
  * @package Autopilot_LP_Funnel_Builder
  */
@@ -17,7 +17,7 @@ class Autopilot_LP_Funnel_Builder_Gemini_Client {
 	/**
 	 * APIエンドポイントURL
 	 */
-	private $api_url = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
+	private $api_url = 'https://generativelanguage.googleapis.com/v1/models/gemini-3.5-flash:generateContent';
 
 	/**
 	 * APIキーの取得
