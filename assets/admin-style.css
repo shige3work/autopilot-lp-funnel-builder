@@ -1,0 +1,594 @@
+/**
+ * Autopilot LP Funnel Builder - Admin Stylesheet
+ *
+ * プレミアムで直感的な管理画面UIを提供するためのスタイリングです。
+ */
+
+.alp-wrap {
+	margin: 20px 20px 0 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	max-width: 1200px;
+}
+
+/* ヘッダーエリア */
+.alp-header {
+	background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+	color: #ffffff;
+	padding: 30px 40px;
+	border-radius: 12px;
+	margin-bottom: 24px;
+	box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.15), 0 4px 6px -2px rgba(59, 130, 246, 0.1);
+}
+
+.alp-header-title-area {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.alp-header h1 {
+	color: #ffffff;
+	font-size: 2.25rem;
+	font-weight: 800;
+	margin: 0;
+	padding: 0;
+	line-height: 1.2;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alp-main-icon {
+	font-size: 38px;
+	width: 38px;
+	height: 38px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #93c5fd;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.alp-badge {
+	background-color: #ef4444;
+	color: #ffffff;
+	font-size: 0.8rem;
+	font-weight: bold;
+	padding: 4px 8px;
+	border-radius: 9999px;
+	vertical-align: middle;
+	margin-left: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alp-tagline {
+	margin: 12px 0 0 0;
+	font-size: 1.05rem;
+	color: #bfdbfe;
+	max-width: 800px;
+	line-height: 1.5;
+}
+
+/* ナビゲーションタブ */
+.alp-nav-tabs {
+	display: flex;
+	gap: 8px;
+	border-bottom: 2px solid #e5e7eb;
+	margin-bottom: 24px;
+	padding-left: 4px;
+}
+
+.alp-nav-tab {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 20px;
+	text-decoration: none;
+	color: #4b5563;
+	font-weight: 600;
+	font-size: 0.95rem;
+	border-bottom: 3px solid transparent;
+	margin-bottom: -2px;
+	transition: all 0.2s ease-in-out;
+}
+
+.alp-nav-tab:hover {
+	color: #2563eb;
+	border-bottom-color: #93c5fd;
+}
+
+.alp-nav-tab.active {
+	color: #2563eb;
+	border-bottom-color: #2563eb;
+}
+
+.alp-nav-tab span.dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+/* タブコンテンツ */
+.alp-tab-content {
+	display: none;
+	animation: fadeIn 0.3s ease-in-out;
+}
+
+.alp-tab-content.active {
+	display: block;
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; transform: translateY(4px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+/* カード共通 */
+.alp-card-header {
+	margin-bottom: 20px;
+}
+
+.alp-card-header h2 {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #111827;
+	margin: 0 0 6px 0;
+}
+
+.alp-card-header p {
+	margin: 0;
+	color: #6b7280;
+	font-size: 0.95rem;
+}
+
+/* エンプティステート */
+.alp-empty-state {
+	background-color: #ffffff;
+	border: 2px dashed #d1d5db;
+	border-radius: 12px;
+	padding: 60px 40px;
+	text-align: center;
+	color: #6b7280;
+}
+
+.alp-empty-state span.dashicons {
+	font-size: 64px;
+	width: 64px;
+	height: 64px;
+	color: #9ca3af;
+	margin-bottom: 16px;
+}
+
+.alp-empty-state p {
+	font-size: 1.1rem;
+	margin: 0;
+	font-weight: 500;
+}
+
+/* プロジェクトリスト・カード */
+.alp-projects-list {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.alp-project-card {
+	background-color: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+	overflow: hidden;
+	transition: box-shadow 0.2s ease-in-out;
+}
+
+.alp-project-card:hover {
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+}
+
+.alp-project-card-header {
+	background-color: #f9fafb;
+	padding: 20px 24px;
+	border-bottom: 1px solid #e5e7eb;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.alp-project-name {
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: #111827;
+	margin: 0 0 6px 0;
+}
+
+.alp-project-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	color: #4b5563;
+	font-size: 0.85rem;
+}
+
+.alp-meta-item strong {
+	color: #1f2937;
+}
+
+.alp-project-status-badge {
+	font-size: 0.85rem;
+	font-weight: 700;
+	padding: 6px 14px;
+	border-radius: 9999px;
+	text-transform: uppercase;
+}
+
+.alp-project-status-badge.status-pending {
+	background-color: #f3f4f6;
+	color: #374151;
+}
+
+.alp-project-status-badge.status-generating {
+	background-color: #dbeafe;
+	color: #1d4ed8;
+}
+
+.alp-project-status-badge.status-completed {
+	background-color: #dcfce7;
+	color: #15803d;
+}
+
+.alp-project-status-badge.status-failed {
+	background-color: #fee2e2;
+	color: #b91c1c;
+}
+
+.alp-project-card-body {
+	padding: 24px;
+}
+
+/* 進捗バー */
+.alp-progress-wrapper {
+	margin-bottom: 24px;
+}
+
+.alp-progress-info {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: #374151;
+	margin-bottom: 8px;
+}
+
+.alp-progress-percent {
+	color: #2563eb;
+	font-size: 1rem;
+	font-weight: 700;
+}
+
+.alp-progress-bar {
+	background-color: #e5e7eb;
+	height: 10px;
+	border-radius: 9999px;
+	overflow: hidden;
+}
+
+.alp-progress-fill {
+	background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+	height: 100%;
+	border-radius: 9999px;
+	transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* アクションボタン類 */
+.alp-project-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: center;
+}
+
+.alp-project-actions button,
+.alp-project-actions a.button {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-weight: 600;
+	padding: 6px 14px;
+	height: auto;
+	line-height: 1.5;
+	border-radius: 6px;
+}
+
+.alp-project-actions button .dashicons,
+.alp-project-actions a.button .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.alp-btn-generate {
+	background-color: #2563eb !important;
+	border-color: #2563eb !important;
+	color: #ffffff !important;
+}
+
+.alp-btn-generate:hover {
+	background-color: #1d4ed8 !important;
+	border-color: #1d4ed8 !important;
+}
+
+.alp-btn-generate:disabled {
+	background-color: #93c5fd !important;
+	border-color: #93c5fd !important;
+	color: #ffffff !important;
+	cursor: not-allowed;
+}
+
+.alp-btn-delete {
+	color: #ef4444 !important;
+	border-color: #fca5a5 !important;
+}
+
+.alp-btn-delete:hover {
+	background-color: #fee2e2 !important;
+	color: #dc2626 !important;
+}
+
+/* AI指示付きLP修正フォーム */
+.alp-refine-form-wrapper {
+	background-color: #f9fafb;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	padding: 20px;
+	margin-top: 20px;
+	animation: slideDown 0.25s ease-out;
+}
+
+@keyframes slideDown {
+	from { opacity: 0; transform: translateY(-8px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+.alp-refine-form-wrapper h4 {
+	font-size: 1.05rem;
+	font-weight: 700;
+	color: #1f2937;
+	margin: 0 0 6px 0;
+}
+
+.alp-refine-form-wrapper p.description {
+	margin: 0 0 14px 0;
+	font-size: 0.85rem;
+	color: #6b7280;
+	line-height: 1.4;
+}
+
+.alp-refine-textarea-container {
+	margin-bottom: 12px;
+}
+
+.alp-refine-textarea-container textarea {
+	width: 100%;
+	border-radius: 6px;
+	border: 1px solid #d1d5db;
+	padding: 10px 12px;
+	font-size: 0.9rem;
+	line-height: 1.5;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.alp-refine-textarea-container textarea:focus {
+	border-color: #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.05);
+	outline: none;
+}
+
+.alp-refine-form-actions {
+	display: flex;
+	gap: 10px;
+}
+
+.alp-btn-submit-refine {
+	background-color: #10b981 !important;
+	border-color: #10b981 !important;
+	color: #ffffff !important;
+}
+
+.alp-btn-submit-refine:hover {
+	background-color: #059669 !important;
+	border-color: #059669 !important;
+}
+
+/* トピッククラスター一覧詳細 */
+.alp-cluster-details-toggle {
+	margin-top: 18px;
+	font-size: 0.9rem;
+}
+
+.alp-toggle-details-link {
+	color: #2563eb;
+	text-decoration: none;
+	font-weight: 600;
+	display: inline-flex;
+	align-items: center;
+}
+
+.alp-toggle-details-link:hover {
+	color: #1d4ed8;
+	text-decoration: underline;
+}
+
+.alp-cluster-table-wrapper {
+	margin-top: 14px;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	overflow: hidden;
+	animation: slideDown 0.25s ease-out;
+}
+
+.alp-cluster-table-wrapper table {
+	border: none;
+}
+
+.alp-cluster-table-wrapper th {
+	background-color: #f3f4f6;
+	color: #374151;
+	font-weight: 700;
+	font-size: 0.85rem;
+	padding: 12px 16px;
+}
+
+.alp-cluster-table-wrapper td {
+	padding: 12px 16px;
+	vertical-align: middle;
+	font-size: 0.9rem;
+}
+
+.alp-headings-preview {
+	margin-top: 4px;
+	font-size: 0.8rem;
+	color: #6b7280;
+}
+
+.alp-heading-tag {
+	background-color: #e5e7eb;
+	color: #4b5563;
+	padding: 2px 6px;
+	border-radius: 4px;
+	font-weight: bold;
+}
+
+.alp-post-status {
+	font-size: 0.8rem;
+	font-weight: 700;
+	padding: 4px 8px;
+	border-radius: 4px;
+}
+
+.alp-post-status.status-pending {
+	background-color: #f3f4f6;
+	color: #4b5563;
+}
+
+.alp-post-status.status-generating {
+	background-color: #dbeafe;
+	color: #1e40af;
+}
+
+.alp-post-status.status-completed {
+	background-color: #dcfce7;
+	color: #166534;
+}
+
+.alp-post-status.status-failed {
+	background-color: #fee2e2;
+	color: #991b1b;
+}
+
+/* フォーム共通スタイル（新規作成・API設定） */
+.alp-form {
+	background-color: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	padding: 30px 40px;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.alp-form-row {
+	margin-bottom: 24px;
+}
+
+.alp-form-row label {
+	display: block;
+	font-weight: 700;
+	font-size: 0.95rem;
+	color: #374151;
+	margin-bottom: 8px;
+}
+
+.alp-form-row input[type="text"],
+.alp-form-row input[type="url"],
+.alp-form-row input[type="password"],
+.alp-form-row select {
+	width: 100%;
+	max-width: 600px;
+	border-radius: 6px;
+	border: 1px solid #d1d5db;
+	padding: 8px 12px;
+	font-size: 0.95rem;
+	height: auto;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.alp-form-row input:focus,
+.alp-form-row select:focus {
+	border-color: #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.05);
+	outline: none;
+}
+
+.alp-required {
+	color: #ef4444;
+	margin-left: 2px;
+}
+
+.alp-form-row p.description {
+	margin-top: 6px;
+	color: #6b7280;
+	font-size: 0.85rem;
+	max-width: 600px;
+}
+
+.alp-form-submit {
+	margin-top: 30px;
+	display: flex;
+	gap: 12px;
+}
+
+.alp-form-submit button {
+	padding: 8px 20px !important;
+	height: auto !important;
+	font-weight: 600 !important;
+	font-size: 0.95rem !important;
+	border-radius: 6px !important;
+}
+
+#alp-btn-test-connection {
+	background-color: #f3f4f6;
+	border-color: #d1d5db;
+	color: #374151;
+}
+
+#alp-btn-test-connection:hover {
+	background-color: #e5e7eb;
+	border-color: #9ca3af;
+}
+
+.alp-test-result {
+	margin-top: 16px;
+	padding: 12px 16px;
+	border-radius: 6px;
+	font-size: 0.9rem;
+	font-weight: 600;
+	display: none;
+}
+
+.alp-test-result.success {
+	background-color: #dcfce7;
+	color: #15803d;
+	border: 1px solid #bbf7d0;
+	display: block;
+}
+
+.alp-test-result.error {
+	background-color: #fee2e2;
+	color: #b91c1c;
+	border: 1px solid #fecaca;
+	display: block;
+}
+
+.spinner {
+	float: none;
+	margin: 0 4px;
+	vertical-align: middle;
+}
